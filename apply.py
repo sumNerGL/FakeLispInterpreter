@@ -1,10 +1,4 @@
-# 用类实现apply_trees函数
-# 把变量存在类里
-# 实现函数
-
-
 def ensure(condition, message):
-    # 测试函数
     if not condition:
         print('*** 测试失败:', message)
     else:
@@ -22,34 +16,22 @@ class Apply:
         self.func = func
 
     def plus(self, l):
-        # print('+')
-        # pass
         r = self.apply(l[1])
         for i, e in enumerate(l):
-            # token = e
             if i < 2:
                 continue
-            # if type(e) == list:
-            #     token = apply(e)
             r += self.apply(e)
         return r
 
     def decrease(self, l):
-        # pass
         r = self.apply(l[1])
-        # print('r', r)
         for i, e in enumerate(l):
-            # token = e
             if i < 2:
                 continue
-            # if type(e) == list:
-            #     token = apply(e)
             r -= self.apply(e)
-            # print('r', r)
         return r
 
     def judge(self, l):
-        # print('l', l)
 
         if self.apply(l[1]) is True:
             return self.apply(l[2])
@@ -117,11 +99,9 @@ class Apply:
             '<': self.less_than,
             '=': self.equal,
         }
-        # l_is_var = (type(l) == str) and (l[0] != '"')
 
         if type(l) == list:
             op = l[0]
-            # print('l', l)
             r = ops[op](l)
         elif type(l) == str:
             r = self.call_variable(l)
@@ -132,11 +112,9 @@ class Apply:
     def apply_trees(self, l):
         r = []
         for i, e in enumerate(l):
-            # print(e[0])
             if e[0] == 'var':
                 self.var.update(self.define_variable(e))
                 r.append('N/A')
-                # print(var)
             elif e[0] == 'def':
                 self.func.update(self.define_function(e))
                 r.append('N/A')
@@ -146,8 +124,6 @@ class Apply:
             else:
                 token = self.apply(e)
                 r.append(token)
-                # print(apply(e))
-        # print(r)
         return r[-1]
 
 
@@ -291,10 +267,6 @@ def test():
 
     test_apply_trees()
 
-    # self.apply_trees([['def', 'f1', ['a', 'b'], ['if', ['<', 'a', 0], 3, 'b']]])
-    # print('self.func', self.func)
-
-# print(Apply().apply_trees([['var', 'a', 1], ['var', 'b', ['+', 1, 1]], ['if', ['<', 'a', 0], 3, 'b']]))
 test()
 
 print('函数测试')
