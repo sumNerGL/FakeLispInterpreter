@@ -56,7 +56,9 @@ class Apply:
         r = {
             k: v,
         }
-        return r
+        self.var.update(r)
+        # print(self.var)
+        return 'N/A'
 
     def call_variable(self, name):
         return self.var[name]
@@ -67,7 +69,8 @@ class Apply:
         r = {
             k: v,
         }
-        return r
+        self.func.update(r)
+        return 'N/A'
 
     def func_var_dict(self, k, v):
         r = {}
@@ -98,6 +101,9 @@ class Apply:
             '>': self.greater_than,
             '<': self.less_than,
             '=': self.equal,
+            'var': self.define_variable,
+            'def': self.define_function,
+            'call': self.call_function,
         }
 
         if type(l) == list:
@@ -112,18 +118,18 @@ class Apply:
     def apply_trees(self, l):
         r = []
         for i, e in enumerate(l):
-            if e[0] == 'var':
-                self.var.update(self.define_variable(e))
-                r.append('N/A')
-            elif e[0] == 'def':
-                self.func.update(self.define_function(e))
-                r.append('N/A')
-            elif e[0] == 'call':
-                t = self.call_function(e)
-                r.append(t)
-            else:
-                token = self.apply(e)
-                r.append(token)
+            # if e[0] == 'var':
+            #     self.var.update(self.define_variable(e))
+            #     r.append('N/A')
+            # if e[0] == 'def':
+            #     self.func.update(self.define_function(e))
+            #     r.append('N/A')
+            # if e[0] == 'call':
+            #     t = self.call_function(e)
+            #     r.append(t)
+            # else:
+            token = self.apply(e)
+            r.append(token)
         return r[-1]
 
 
@@ -187,24 +193,16 @@ def test_define_variable():
     l1 = ['var', 'a', 2]
     l2 = ['var', 'a', ['-', 2, 1]]
 
-    ensure(Apply().define_variable(l1) == {
-        'a': 2,
-    }, 'define_variable 测试1')
-    ensure(Apply().define_variable(l2) == {
-        'a': 1,
-    }, 'define_variable 测试2')
+    ensure(Apply().define_variable(l1) == 'N/A', 'define_variable 测试1')
+    ensure(Apply().define_variable(l2) == 'N/A', 'define_variable 测试2')
 
 
 def test_define_function():
     l1 = ['def', 'f1', ['a', 'b'], ['if', ['<', 'a', 0], 3, 'b']]
     l2 = ['def', 'f2', [], [['-', 2, 2], ['-', 2, 1]]]
 
-    ensure(Apply().define_function(l1) == {
-        'f1': [['a', 'b'], ['if', ['<', 'a', 0], 3, 'b']],
-    }, 'define_function 测试1')
-    ensure(Apply().define_function(l2) == {
-        'f2': [[], [['-', 2, 2], ['-', 2, 1]]]
-    }, 'define_function 测试2')
+    ensure(Apply().define_function(l1) == 'N/A', 'define_function 测试1')
+    ensure(Apply().define_function(l2) == 'N/A', 'define_function 测试2')
 
 
 def test_call_function():
