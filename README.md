@@ -4,6 +4,9 @@
 简介
 ===
 tree.py 可以将字符串转化为抽象语法树（效果如图）
+
 <img src='https://github.com/sumNerGL/FakeLispInterpreter/blob/master/tree.png' />
+
 apply.py 可以逐行生成的抽象语法树（效果如图）
+
 <img src='https://github.com/sumNerGL/FakeLispInterpreter/blob/master/apply.png' />
