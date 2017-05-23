@@ -3,6 +3,14 @@
 
 简介
 ===
+
+支持
+- 算术表达式
+- 条件表达式
+- 变量
+- 函数
+- 递归
+
 tree.py 可以将字符串转化为抽象语法树（效果如图）
 
 <img src='https://github.com/sumNerGL/FakeLispInterpreter/blob/master/screenshot/tree.png' />

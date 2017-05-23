@@ -279,10 +279,22 @@ def preview():
         ['def', 'f1', ['a', 'b'], [['-', ['+', 'a', 2], 3, 'b']]],
         ['call', 'f1', ['a', 'b']]
     ]
+    test_list4 = [
+        ['var', 'a', 5],
+        ['def', 'f1', ['n'],
+         [
+            ['if', ['<', 'n', 1], 0,
+             ['+', 'n', ['call', 'f1', [['-', 'n', 1]]]]
+             ]
+         ]
+         ],
+        ['call', 'f1', ['a']]
+    ]
 
     test_list.append(test_list1)
     test_list.append(test_list2)
     test_list.append(test_list3)
+    test_list.append(test_list4)
 
     for i, e in enumerate(test_list):
         print(e)
