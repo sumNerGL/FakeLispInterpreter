@@ -23,12 +23,28 @@ class Apply:
             r += self.apply(e)
         return r
 
-    def decrease(self, l):
+    def minus(self, l):
         r = self.apply(l[1])
         for i, e in enumerate(l):
             if i < 2:
                 continue
             r -= self.apply(e)
+        return r
+
+    def times(self, l):
+        r = self.apply(l[1])
+        for i, e in enumerate(l):
+            if i < 2:
+                continue
+            r *= self.apply(e)
+        return r
+
+    def divide(self, l):
+        r = self.apply(l[1])
+        for i, e in enumerate(l):
+            if i < 2:
+                continue
+            r /= self.apply(e)
         return r
 
     def judge(self, l):
@@ -96,7 +112,9 @@ class Apply:
     def apply(self, l):
         ops = {
             '+': self.plus,
-            '-': self.decrease,
+            '-': self.minus,
+            '*': self.times,
+            '/': self.divide,
             'if': self.judge,
             '>': self.greater_than,
             '<': self.less_than,
@@ -141,12 +159,28 @@ def test_plus():
     ensure(Apply().plus(l2) == 6, 'plus 测试2')
 
 
-def test_decrease():
+def test_minus():
     l1 = ['-', 2, 1]
     l2 = ['-', 5, 2, ['+', 1, 2]]
 
-    ensure(Apply().decrease(l1) == 1, 'decrease 测试1')
-    ensure(Apply().decrease(l2) == 0, 'decrease 测试2')
+    ensure(Apply().minus(l1) == 1, 'decrease 测试1')
+    ensure(Apply().minus(l2) == 0, 'decrease 测试2')
+
+
+def test_times():
+    l1 = ['*', 2, 1]
+    l2 = ['*', 5, 2, ['+', 1, 2]]
+
+    ensure(Apply().times(l1) == 2, 'times 测试1')
+    ensure(Apply().times(l2) == 30, 'times 测试2')
+
+
+def test_divide():
+    l1 = ['/', 2, 2]
+    l2 = ['/', 30, 2, ['+', 1, 2]]
+
+    ensure(Apply().divide(l1) == 1, 'divide 测试1')
+    ensure(Apply().divide(l2) == 5, 'divide 测试2')
 
 
 def test_judge():
@@ -252,7 +286,9 @@ def test_apply_trees():
 
 def test():
     test_plus()
-    test_decrease()
+    test_minus()
+    test_times()
+    test_divide()
     test_judge()
     test_greater_than()
     test_less_than()
@@ -280,11 +316,11 @@ def preview():
         ['call', 'f1', ['a', 'b']]
     ]
     test_list4 = [
-        ['var', 'a', 5],
+        ['var', 'a', 4],
         ['def', 'f1', ['n'],
          [
-            ['if', ['<', 'n', 1], 0,
-             ['+', 'n', ['call', 'f1', [['-', 'n', 1]]]]
+            ['if', ['<', 'n', 2], 1,
+             ['*', 'n', ['call', 'f1', [['-', 'n', 1]]]]
              ]
          ]
          ],
