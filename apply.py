@@ -265,36 +265,24 @@ def test():
 
     test_apply_trees()
 
-test()
+# test()
 
-print('函数测试')
-test_list1 = [['def', 'f1', ['a', 'b'], [['-', ['+', 'a', 2], 3, 'b']]], ['call', 'f1', [3, 2]]]
-print(test_list1)
-print('>>>')
-r1 = Apply().apply_trees(test_list1)
-print(r1)
+test_list = []
 
-print('用变量调用函数测试')
-test_list2 = [
+test_list1 = [['+', 1, 2, ['-', 2, 1]]]
+test_list2 = [['var', 'a', 1], ['var', 'b', ['+', 1, 1]], ['if', ['<', 'a', 0], 3, 'b']]
+test_list3 = [
     ['var', 'a', 3],
     ['var', 'b', 2],
     ['def', 'f1', ['a', 'b'], [['-', ['+', 'a', 2], 3, 'b']]],
     ['call', 'f1', ['a', 'b']]
 ]
-print(test_list2)
-print('>>>')
-r2 = Apply().apply_trees(test_list2)
-print(r2)
 
-print('函数调用中变量独立性测试')
-test_list3 = [
-    ['var', 'a', 3],
-    ['var', 'b', 2],
-    ['def', 'f1', ['x', 'y'], [['var', 'a', 1], ['-', ['+', 'x', 2], 3, 'y']]],
-    ['call', 'f1', ['a', 'b']],
-    ['call', 'f1', ['a', 'b']]
-]
-print(test_list3)
-print('>>>')
-r3 = Apply().apply_trees(test_list3)
-print(r3)
+test_list.append(test_list1)
+test_list.append(test_list2)
+test_list.append(test_list3)
+
+for i, e in enumerate(test_list):
+    print(e)
+    r = Apply().apply_trees(e)
+    print('>>>', r)
