@@ -47,6 +47,46 @@ class Apply:
             r /= self.apply(e)
         return r
 
+    def calc_common(self, l, t):
+        for i, e in enumerate(l):
+            # print('i, e', i, e)
+            if e in t:
+                # print('if in')
+                token = self.apply([e, l[i-1], l[i+1]])
+                r = l[:i-1] + [token] + l[i+2:]
+                # print('r', r)
+                return r
+
+    def calc_list(self, l):
+        for i, e in enumerate(l):
+            # print('i, e', i, e)
+            if type(e) == list:
+                t = self.calc(['calc', e])
+                r = l[:i] + [t] + l[i+1:]
+                return r
+
+    def calc_apply(self, l):
+        for i, e in enumerate(l):
+            if type(e) == list:
+                r = self.calc_list(l)
+                return r
+        if ('*' in l) or ('/' in l):
+            r = self.calc_common(l, ['*', '/'])
+            return r
+        elif ('+' in l) or ('-' in l):
+            r = self.calc_common(l, ['+', '-'])
+            return r
+
+    def calc(self, l):
+        f = l[1]
+        if len(f) > 1:
+            t = self.calc_apply(f)
+            r = self.calc(['calc', t])
+        else:
+            r = f[0]
+        return r
+
+
     def judge(self, l):
         # l 的格式是 ['if', 条件表达式, 条件为 True 时, 条件为 False 时]
         if self.apply(l[1]) is True:
@@ -115,6 +155,7 @@ class Apply:
             '-': self.minus,
             '*': self.times,
             '/': self.divide,
+            'calc': self.calc,
             'if': self.judge,
             '>': self.greater_than,
             '<': self.less_than,
@@ -181,6 +222,16 @@ def test_divide():
 
     ensure(Apply().divide(l1) == 1, 'divide 测试1')
     ensure(Apply().divide(l2) == 5, 'divide 测试2')
+
+
+def test_calc():
+    l1 = ['calc', [1, '+', 2, '-', 3]]
+    l2 = ['calc', [1, '+', 2, '*', 3, '/', 2]]
+    l3 = ['calc', [1, '+', 2, '*', [1, '+', [1, '+', 1]], '/', 2]]
+
+    ensure(Apply().calc(l1) == 0, 'calc 测试1')
+    ensure(Apply().calc(l2) == 4, 'calc 测试2')
+    ensure(Apply().calc(l3) == 4, 'calc 测试3')
 
 
 def test_judge():
@@ -289,6 +340,7 @@ def test():
     test_minus()
     test_times()
     test_divide()
+    test_calc()
     test_judge()
     test_greater_than()
     test_less_than()
@@ -326,11 +378,13 @@ def preview():
          ],
         ['call', 'f1', ['a']]
     ]
+    test_list5 = [['calc', [1, '+', 2, '*', [1, '+', [1, '+', 1]], '/', 2]]]
 
     test_list.append(test_list1)
     test_list.append(test_list2)
     test_list.append(test_list3)
     test_list.append(test_list4)
+    test_list.append(test_list5)
 
     for i, e in enumerate(test_list):
         print(e)
@@ -340,5 +394,6 @@ def preview():
 # preview()
 
 if __name__ == '__main__':
-    # test()
+    test()
     preview()
+
