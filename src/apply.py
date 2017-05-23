@@ -133,156 +133,160 @@ class Apply:
         return r[-1]
 
 
-def test_plus():
-    l1 = ['+', 1, 2]
-    l2 = ['+', 1, 2, ['+', 1, 2]]
+# def test_plus():
+#     l1 = ['+', 1, 2]
+#     l2 = ['+', 1, 2, ['+', 1, 2]]
+#
+#     ensure(Apply().plus(l1) == 3, 'plus 测试1')
+#     ensure(Apply().plus(l2) == 6, 'plus 测试2')
+#
+#
+# def test_decrease():
+#     l1 = ['-', 2, 1]
+#     l2 = ['-', 5, 2, ['+', 1, 2]]
+#
+#     ensure(Apply().decrease(l1) == 1, 'decrease 测试1')
+#     ensure(Apply().decrease(l2) == 0, 'decrease 测试2')
+#
+#
+# def test_judge():
+#     l1 = ['if', True, 1, 2]
+#     l2 = ['if', False, 2, ['+', 1, 2]]
+#     l3 = ['if', False, 2, ['if', True, 1, 2]]
+#
+#     ensure(Apply().judge(l1) == 1, 'judge 测试1')
+#     ensure(Apply().judge(l2) == 3, 'judge 测试2')
+#     ensure(Apply().judge(l3) == 1, 'judge 测试3')
+#
+#
+# def test_greater_than():
+#     l1 = ['>', 2, 1]
+#     l2 = ['>', 1, 2]
+#     l3 = ['>', 1, ['+', 1, 1]]
+#
+#     ensure(Apply().greater_than(l1), 'more 测试1')
+#     ensure(not Apply().greater_than(l2), 'more 测试2')
+#     ensure(not Apply().greater_than(l3), 'more 测试3')
+#
+#
+# def test_less_than():
+#     l1 = ['<', 2, 1]
+#     l2 = ['<', 1, 2]
+#     l3 = ['<', 1, ['+', 1, 1]]
+#
+#     ensure(not Apply().less_than(l1), 'less 测试1')
+#     ensure(Apply().less_than(l2), 'less 测试2')
+#     ensure(Apply().less_than(l3), 'less 测试3')
+#
+#
+# def test_equal():
+#     l1 = ['=', 2, 1]
+#     l2 = ['=', 2, 2]
+#     l3 = ['=', 2, ['+', 1, 1]]
+#
+#     ensure(not Apply().equal(l1), 'equal 测试1')
+#     ensure(Apply().equal(l2), 'equal 测试2')
+#     ensure(Apply().equal(l3), 'equal 测试3')
+#
+#
+# def test_define_variable():
+#     l1 = ['var', 'a', 2]
+#     l2 = ['var', 'a', ['-', 2, 1]]
+#
+#     ensure(Apply().define_variable(l1) == 'N/A', 'define_variable 测试1')
+#     ensure(Apply().define_variable(l2) == 'N/A', 'define_variable 测试2')
+#
+#
+# def test_define_function():
+#     l1 = ['def', 'f1', ['a', 'b'], ['if', ['<', 'a', 0], 3, 'b']]
+#     l2 = ['def', 'f2', [], [['-', 2, 2], ['-', 2, 1]]]
+#
+#     ensure(Apply().define_function(l1) == 'N/A', 'define_function 测试1')
+#     ensure(Apply().define_function(l2) == 'N/A', 'define_function 测试2')
+#
+#
+# def test_call_function():
+#     d1 = [['def', 'f1', ['a', 'b'], [['if', ['<', 'a', 0], 3, 'b']]]]
+#     apply = Apply()
+#     apply.apply_trees(d1)
+#     # print('func', self.func)
+#     l1 = ['call', 'f1', [1, 2]]
+#     ensure(apply.call_function(l1) == 2, 'call_function 测试1')
+#
+#
+# def test_apply():
+#     l1 = ['+', 1, 2, ['-', 2, 1]]
+#     l2 = ['if', ['>', 1, 2], 1, 2]
+#     l3 = ['if', ['<', 1, 2], 1, 2]
+#     l4 = ['if', ['=', 1, 2], 1, 2]
+#
+#     # print(apply(l1))
+#     # print(apply(l2))
+#     # print(apply(l3))
+#     # print(apply(l4))
+#
+#     ensure(Apply().apply(l1) == 4, 'apply 测试1')
+#     ensure(Apply().apply(l2) == 2, 'apply 测试2')
+#     ensure(Apply().apply(l3) == 1, 'apply 测试3')
+#     ensure(Apply().apply(l4) == 2, 'apply 测试4')
+#
+#
+# def test_apply_trees():
+#     l1 = [['+', 1, 2, ['-', 2, 1]]]
+#     l2 = [['-', 2, 2], ['-', 2, 1]]
+#     l3 = [['var', 'a', ['-', 2, 1]]]
+#     l4 = [['var', 'a', 1], ['var', 'b', ['+', 1, 1]], ['if', ['<', 'a', 0], 3, 'b']]
+#     l5 = [
+#         ['var', 'a', 3],
+#         ['var', 'b', 2],
+#         ['def', 'f1', ['a', 'b'], [['-', ['+', 'a', 2], 3, 'b']]],
+#         ['call', 'f1', ['a', 'b']]
+#     ]
+#
+#     ensure(Apply().apply_trees(l1) == 4, 'apply_trees 测试1')
+#     ensure(Apply().apply_trees(l2) == 1, 'apply_trees 测试2')
+#     ensure(Apply().apply_trees(l3) == 'N/A', 'apply_trees 测试3')
+#     ensure(Apply().apply_trees(l4) == 2, 'apply_trees 测试4')
+#     ensure(Apply().apply_trees(l5) == 0, 'apply_trees 测试5')
+#
+#
+# def test():
+#     test_plus()
+#     test_decrease()
+#     test_judge()
+#     test_greater_than()
+#     test_less_than()
+#     test_equal()
+#     test_define_variable()
+#     test_define_function()
+#     test_call_function()
+#
+#     test_apply()
+#
+#     test_apply_trees()
 
-    ensure(Apply().plus(l1) == 3, 'plus 测试1')
-    ensure(Apply().plus(l2) == 6, 'plus 测试2')
+# test()
 
 
-def test_decrease():
-    l1 = ['-', 2, 1]
-    l2 = ['-', 5, 2, ['+', 1, 2]]
+def preview():
+    test_list = []
 
-    ensure(Apply().decrease(l1) == 1, 'decrease 测试1')
-    ensure(Apply().decrease(l2) == 0, 'decrease 测试2')
-
-
-def test_judge():
-    l1 = ['if', True, 1, 2]
-    l2 = ['if', False, 2, ['+', 1, 2]]
-    l3 = ['if', False, 2, ['if', True, 1, 2]]
-
-    ensure(Apply().judge(l1) == 1, 'judge 测试1')
-    ensure(Apply().judge(l2) == 3, 'judge 测试2')
-    ensure(Apply().judge(l3) == 1, 'judge 测试3')
-
-
-def test_greater_than():
-    l1 = ['>', 2, 1]
-    l2 = ['>', 1, 2]
-    l3 = ['>', 1, ['+', 1, 1]]
-
-    ensure(Apply().greater_than(l1), 'more 测试1')
-    ensure(not Apply().greater_than(l2), 'more 测试2')
-    ensure(not Apply().greater_than(l3), 'more 测试3')
-
-
-def test_less_than():
-    l1 = ['<', 2, 1]
-    l2 = ['<', 1, 2]
-    l3 = ['<', 1, ['+', 1, 1]]
-
-    ensure(not Apply().less_than(l1), 'less 测试1')
-    ensure(Apply().less_than(l2), 'less 测试2')
-    ensure(Apply().less_than(l3), 'less 测试3')
-
-
-def test_equal():
-    l1 = ['=', 2, 1]
-    l2 = ['=', 2, 2]
-    l3 = ['=', 2, ['+', 1, 1]]
-
-    ensure(not Apply().equal(l1), 'equal 测试1')
-    ensure(Apply().equal(l2), 'equal 测试2')
-    ensure(Apply().equal(l3), 'equal 测试3')
-
-
-def test_define_variable():
-    l1 = ['var', 'a', 2]
-    l2 = ['var', 'a', ['-', 2, 1]]
-
-    ensure(Apply().define_variable(l1) == 'N/A', 'define_variable 测试1')
-    ensure(Apply().define_variable(l2) == 'N/A', 'define_variable 测试2')
-
-
-def test_define_function():
-    l1 = ['def', 'f1', ['a', 'b'], ['if', ['<', 'a', 0], 3, 'b']]
-    l2 = ['def', 'f2', [], [['-', 2, 2], ['-', 2, 1]]]
-
-    ensure(Apply().define_function(l1) == 'N/A', 'define_function 测试1')
-    ensure(Apply().define_function(l2) == 'N/A', 'define_function 测试2')
-
-
-def test_call_function():
-    d1 = [['def', 'f1', ['a', 'b'], [['if', ['<', 'a', 0], 3, 'b']]]]
-    apply = Apply()
-    apply.apply_trees(d1)
-    # print('func', self.func)
-    l1 = ['call', 'f1', [1, 2]]
-    ensure(apply.call_function(l1) == 2, 'call_function 测试1')
-
-
-def test_apply():
-    l1 = ['+', 1, 2, ['-', 2, 1]]
-    l2 = ['if', ['>', 1, 2], 1, 2]
-    l3 = ['if', ['<', 1, 2], 1, 2]
-    l4 = ['if', ['=', 1, 2], 1, 2]
-
-    # print(apply(l1))
-    # print(apply(l2))
-    # print(apply(l3))
-    # print(apply(l4))
-
-    ensure(Apply().apply(l1) == 4, 'apply 测试1')
-    ensure(Apply().apply(l2) == 2, 'apply 测试2')
-    ensure(Apply().apply(l3) == 1, 'apply 测试3')
-    ensure(Apply().apply(l4) == 2, 'apply 测试4')
-
-
-def test_apply_trees():
-    l1 = [['+', 1, 2, ['-', 2, 1]]]
-    l2 = [['-', 2, 2], ['-', 2, 1]]
-    l3 = [['var', 'a', ['-', 2, 1]]]
-    l4 = [['var', 'a', 1], ['var', 'b', ['+', 1, 1]], ['if', ['<', 'a', 0], 3, 'b']]
-    l5 = [
+    test_list1 = [['+', 1, 2, ['-', 2, 1]]]
+    test_list2 = [['var', 'a', 1], ['var', 'b', ['+', 1, 1]], ['if', ['<', 'a', 0], 3, 'b']]
+    test_list3 = [
         ['var', 'a', 3],
         ['var', 'b', 2],
         ['def', 'f1', ['a', 'b'], [['-', ['+', 'a', 2], 3, 'b']]],
         ['call', 'f1', ['a', 'b']]
     ]
 
-    ensure(Apply().apply_trees(l1) == 4, 'apply_trees 测试1')
-    ensure(Apply().apply_trees(l2) == 1, 'apply_trees 测试2')
-    ensure(Apply().apply_trees(l3) == 'N/A', 'apply_trees 测试3')
-    ensure(Apply().apply_trees(l4) == 2, 'apply_trees 测试4')
-    ensure(Apply().apply_trees(l5) == 0, 'apply_trees 测试5')
+    test_list.append(test_list1)
+    test_list.append(test_list2)
+    test_list.append(test_list3)
 
+    for i, e in enumerate(test_list):
+        print(e)
+        r = Apply().apply_trees(e)
+        print('>>>', r)
 
-def test():
-    test_plus()
-    test_decrease()
-    test_judge()
-    test_greater_than()
-    test_less_than()
-    test_equal()
-    test_define_variable()
-    test_define_function()
-    test_call_function()
-
-    test_apply()
-
-    test_apply_trees()
-
-# test()
-
-test_list = []
-
-test_list1 = [['+', 1, 2, ['-', 2, 1]]]
-test_list2 = [['var', 'a', 1], ['var', 'b', ['+', 1, 1]], ['if', ['<', 'a', 0], 3, 'b']]
-test_list3 = [
-    ['var', 'a', 3],
-    ['var', 'b', 2],
-    ['def', 'f1', ['a', 'b'], [['-', ['+', 'a', 2], 3, 'b']]],
-    ['call', 'f1', ['a', 'b']]
-]
-
-test_list.append(test_list1)
-test_list.append(test_list2)
-test_list.append(test_list3)
-
-for i, e in enumerate(test_list):
-    print(e)
-    r = Apply().apply_trees(e)
-    print('>>>', r)
+preview()
