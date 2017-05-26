@@ -1,3 +1,5 @@
+from tree import tree
+
 def ensure(condition, message):
     if not condition:
         print('*** 测试失败:', message)
@@ -359,26 +361,31 @@ def test():
 def preview():
     test_list = []
 
-    test_list1 = [['+', 1, 2, ['-', 2, 1]]]
-    test_list2 = [['var', 'a', 1], ['var', 'b', ['+', 1, 1]], ['if', ['<', 'a', 0], 3, 'b']]
-    test_list3 = [
-        ['var', 'a', 3],
-        ['var', 'b', 2],
-        ['def', 'f1', ['a', 'b'], [['-', ['+', 'a', 2], 3, 'b']]],
-        ['call', 'f1', ['a', 'b']]
-    ]
-    test_list4 = [
-        ['var', 'a', 4],
-        ['def', 'f1', ['n'],
-         [
-            ['if', ['<', 'n', 2], 1,
-             ['*', 'n', ['call', 'f1', [['-', 'n', 1]]]]
-             ]
-         ]
-         ],
-        ['call', 'f1', ['a']]
-    ]
-    test_list5 = [['calc', [1, '+', 2, '*', [1, '+', [1, '+', 1]], '/', 2]]]
+    # test_list1 = [['+', 1, 2, ['-', 2, 1]]]
+    test_list1 = '((+ 1 2 (- 2 1)))'
+    # test_list2 = [['var', 'a', 1], ['var', 'b', ['+', 1, 1]], ['if', ['<', 'a', 0], 3, 'b']]
+    test_list2 = '((var a 1) (var b (+ 1 1)) (if (< a 0) 3 b))'
+    # test_list3 = [
+    #     ['var', 'a', 3],
+    #     ['var', 'b', 2],
+    #     ['def', 'f1', ['a', 'b'], [['-', ['+', 'a', 2], 3, 'b']]],
+    #     ['call', 'f1', ['a', 'b']]
+    # ]
+    test_list3 = '((var a 3) (var b 2) (def f1 (a b) ((- (+ a 2) 3 b))) (call f1 (a b)))'
+    # test_list4 = [
+    #     ['var', 'a', 4],
+    #     ['def', 'f1', ['n'],
+    #      [
+    #         ['if', ['<', 'n', 2], 1,
+    #          ['*', 'n', ['call', 'f1', [['-', 'n', 1]]]]
+    #          ]
+    #      ]
+    #      ],
+    #     ['call', 'f1', ['a']]
+    # ]
+    test_list4 = '((var a 4) (def f1 (n) ((if (< n 2) 1 (* n (call f1 ((- n 1))))))) (call f1 (a)))'
+    # test_list5 = [['calc', [1, '+', 2, '*', [1, '+', [1, '+', 1]], '/', 2]]]
+    test_list5 = '((calc (1 + 2 * (1 + (1 + 1)) / 2)))'
 
     test_list.append(test_list1)
     test_list.append(test_list2)
@@ -388,12 +395,15 @@ def preview():
 
     for i, e in enumerate(test_list):
         print(e)
-        r = Apply().apply_trees(e)
+        l = tree(e)
+        print('>>>', l)
+        r = Apply().apply_trees(l)
         print('>>>', r)
+        print()
 
 # preview()
 
 if __name__ == '__main__':
-    test()
+    # test()
     preview()
 

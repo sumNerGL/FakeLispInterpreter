@@ -104,14 +104,14 @@ def tree(s):
     r, c = list_element(l)
     return r[0]
 
-s1 = '(+ 1 2 (- 3 4))'
-s2 = '(+ 12 2.34 (- 345 45))'
-s3 = '(+ foo 2.34 (- 3 bar))'
-s4 = '(+ foo 2.34 (- 3 "hi(\\" )"))'
-s5 = '(+ foo 2.34 (- 3 bar) (- 3 bar))'
-
-print(s1, '>>>', tree(s1))
-print(s2, '>>>', tree(s2))
-print(s3, '>>>', tree(s3))
-print(s4, '>>>', tree(s4))
-print(s5, '>>>', tree(s5))
+# s1 = '(+ 1 2 (- 3 4))'
+# s2 = '(+ 12 2.34 (- 345 45))'
+# s3 = '(+ foo 2.34 (- 3 bar))'
+# s4 = '(+ foo 2.34 (- 3 "hi(\\" )"))'
+# s5 = '(+ foo 2.34 (- 3 bar) (- 3 bar))'
+#
+# print(s1, '>>>', tree(s1))
+# print(s2, '>>>', tree(s2))
+# print(s3, '>>>', tree(s3))
+# print(s4, '>>>', tree(s4))
+# print(s5, '>>>', tree(s5))
